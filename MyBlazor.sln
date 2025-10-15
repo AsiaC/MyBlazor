@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyServerManagement", "MySer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server interactivity per page", "Server interactivity per page\Server interactivity per page.csproj", "{030EEF12-F60C-4566-8255-B2B3C5757C9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp", "ToDoListApp\ToDoListApp.csproj", "{A1E17C60-CE43-4810-A418-B182D364AB29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E17C60-CE43-4810-A418-B182D364AB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E17C60-CE43-4810-A418-B182D364AB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E17C60-CE43-4810-A418-B182D364AB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E17C60-CE43-4810-A418-B182D364AB29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
