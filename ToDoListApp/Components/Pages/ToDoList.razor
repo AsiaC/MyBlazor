@@ -1,4 +1,5 @@
 ﻿@page "/todo"
+@rendermode InteractiveServer
 
 <h3>To Do</h3>
 
@@ -7,41 +8,46 @@
 <br />
 <br />
 
-
-@foreach (var task in toDoTasks)
-{
-    <div class="row" @key="task.Id">
-        <div class="col-1">
-            <input class="form-check-input me-1" type="checkbox" value="" id="checkbox-@task.Id" 
-            checked="@(task.IsCompleted==true?true:false)">
-        </div>
-        <div class="col-6">
-            <input type="text" class="@($"form-control{(task.IsCompleted?" text-decoration-line-through":"")}")" value="@task.Title" disabled="@(task.IsCompleted ? true : false)">
-        </div>
-        <div class="col">
-            @if (task.IsCompleted == true)
-            {
-                <label class="form-check-date" for="checkbox-@task.Id">Completed at: @task.CompletedDate.ToString()</label>
-            }
-        </div>
-    </div>
-}
+<ul class="list-unstyled">
+    @foreach (var task in toDoTasks)
+    {
+        <li @key="task.Id">
+            <div class="row mb-2">
+                <div class="col-1" style="width:30px">
+                    <input 
+                        type="checkbox" 
+                        class="form-check-input" 
+                        style="vertical-align:middle"
+                        @bind-value="task.IsCompleted" 
+                        checked="@task.IsCompleted">
+                </div>
+                <div class="col">
+                    <input 
+                        type="text" 
+                        class="@($"form-control border-0{(task.IsCompleted ? " text-decoration-line-through" : "")}")"
+                        style="vertical-align:middle"
+                        @bind-value="task.Title" 
+                        disabled="@(task.IsCompleted ? true : false)">
+                </div>
+                <div class="col">
+                    @if (task.IsCompleted)
+                    {
+                        <text> Completed at: @task.CompletedDate.ToLongDateString()</text>
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>
 
 
 
 @code {
-    private List<ToDoTask> toDoTasks = new List<ToDoTask>()
-    {
-        new ToDoTask { Id = 1, Title = "First task", IsCompleted = false },
-        new ToDoTask { Id = 2, Title = "Second task", IsCompleted = true },
-        new ToDoTask { Id = 3, Title = "Third task", IsCompleted = false }
-    }
-    .OrderByDescending(task => task.Id)
-    .ToList();
+    private List<ToDoTask> toDoTasks = ToDoTaskRepository.GetTasks();
 
     private void AddTask()
     {
-        var newTaskId = toDoTasks.Any() ? toDoTasks.Max(t => t.Id) + 1 : 1;
-        toDoTasks.Insert(0, new ToDoTask { Id = newTaskId, Title = $"New task {newTaskId}", IsCompleted = false });
+        ToDoTaskRepository.AddTask(new ToDoTask { Title = $"New task" });
+        toDoTasks = ToDoTaskRepository.GetTasks();
     }
 }

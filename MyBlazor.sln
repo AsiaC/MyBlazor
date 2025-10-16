@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyServerManagement", "MyServerManagement\MyServerManagement.csproj", "{F8142950-110A-4D1C-A88C-03E4D93488BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server interactivity per page", "Server interactivity per page\Server interactivity per page.csproj", "{030EEF12-F60C-4566-8255-B2B3C5757C9F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp", "ToDoListApp\ToDoListApp.csproj", "{A1E17C60-CE43-4810-A418-B182D364AB29}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{F8142950-110A-4D1C-A88C-03E4D93488BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8142950-110A-4D1C-A88C-03E4D93488BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8142950-110A-4D1C-A88C-03E4D93488BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{030EEF12-F60C-4566-8255-B2B3C5757C9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1E17C60-CE43-4810-A418-B182D364AB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1E17C60-CE43-4810-A418-B182D364AB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E17C60-CE43-4810-A418-B182D364AB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
