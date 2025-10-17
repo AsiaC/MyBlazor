@@ -33,32 +33,18 @@
 </div>
 <br />
 
-List:
-<ul>
-    <Virtualize Items="this.servers" Context="server">
-        <li @key="server.ServerId">
-            @server.Name in @server.City is
-            <span style="color:@(server.IsOnline ? "green" : "red")">
-                @(server.IsOnline ? "Online" : "Offline")
-            </span>
-            &nbsp;
-            <a href="/servers/@server.ServerId" class="btn btn-link">Edit</a>
-            <EditForm Model="server"
-                      FormName=@($"server-{server.ServerId}")
-                      OnValidSubmit="@(()=>DeleteServer(server.ServerId))">
-                <button type="submit" class="btn btn-primary">Delete</button>
-            </EditForm>
-        </li>
-    </Virtualize>
-</ul>
+<ServerListComponent 
+    @rendermode="InteractiveServer"
+    CityName="@this.selectedCity">
+    </ServerListComponent>
 
 <p>
-    <AddServer />
+    @* <AddServer /> *@
     <a href="/servers/add" class="btn btn-primary">Add Server</a>
 </p>
 
 @code {
-    private List<Server> servers = ServersRepository.GetServersByCity("Toronto");
+   
     private List<String> cities = CitiesRepository.GetCities();
     public string selectedCity = "Toronto";
     private string _serverFilter = string.Empty;
@@ -68,30 +54,23 @@ List:
         {
             _serverFilter = value;
 
-            this.servers = ServersRepository.SearchServers(_serverFilter);
+            //this.servers = ServersRepository.SearchServers(_serverFilter);
         }
     }
 
-    private void DeleteServer(int serverId)
-    {
-        if (serverId > 0)
-        {
-            ServersRepository.DeleteServer(serverId);
-            NavigationManager.NavigateTo("/servers", true);
-        }
-    }
+    
 
     private void SelectCity(string city)
     {
         this.selectedCity = city;
-        this.servers = ServersRepository.GetServersByCity(selectedCity);
+        //this.servers = ServersRepository.GetServersByCity(selectedCity);
     }
 
     private void HandleSearch()
     {
         if (!string.IsNullOrWhiteSpace(serverFilter))
         {
-            this.servers = ServersRepository.SearchServers(serverFilter);
+          //  this.servers = ServersRepository.SearchServers(serverFilter);
             this.selectedCity = string.Empty;
         }
     }
