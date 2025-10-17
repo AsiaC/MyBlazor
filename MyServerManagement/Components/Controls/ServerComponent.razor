@@ -1,22 +1,32 @@
-﻿@if(server != null)
+﻿@inject NavigationManager NavigationManager
+
+@if(Server != null)
 {
-    <div data-name="@server.Name"
-        data-status="Server is @(server.IsOnline?"online":"offline")"
-        style="@($"color:{(server.IsOnline?"green":"red")}")">
-        @server.Name is in @server.City that is @(server.IsOnline ? "online" : "offline")
+    <li @key="Server.ServerId">
+        @Server.Name in @Server.City is
+        <span style="color:@(Server.IsOnline ? "green" : "red")">
+            @(Server.IsOnline ? "Online" : "Offline")
+        </span>
         &nbsp;
-        <button type="button" class="btn btn-primary" @onclick="ChangeStatus">Turn on/off</button>
-    </div>
+        <a href="/servers/@Server.ServerId" class="btn btn-link">Edit</a>
+        <EditForm Model="Server"
+                  FormName="@($"server-{Server.ServerId}")"
+                  OnValidSubmit="@(()=>DeleteServer(Server.ServerId))">
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </EditForm>
+    </li>
 }
 
 @code {
-    private Server? server { get; set; } = new Server { Name = "Server 1", City = "Toronto" };
+    [Parameter]
+    public Server? Server { get; set; } //= new Server { Name = "Server 1", City = "Toronto" };
 
-    private void ChangeStatus()
+    private void DeleteServer(int serverId)
     {
-        if (server != null)
+        if (serverId > 0)
         {
-            this.server.IsOnline = !this.server.IsOnline;
+            ServersRepository.DeleteServer(serverId);
+            NavigationManager.NavigateTo("/servers", true);
         }
     }
 }
