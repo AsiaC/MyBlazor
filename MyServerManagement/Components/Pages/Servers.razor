@@ -5,23 +5,7 @@
 
 <h3>Servers</h3>
 
-<div calss="container-fluid text-center">
-    <div class="row w-50">
-        @foreach (var city in cities)
-        {
-            <div class="col">
-                <div class="card @(selectedCity.Equals(city, StringComparison.OrdinalIgnoreCase) ? "border-primary" : "")">
-                    <img src=@($"/images/{city}.png") class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city </button>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-@*  <ServerComponent @rendermode="InteractiveServer"></ServerComponent> *@
+<CityLIstComponent SelectedCityCallback="HandleCitySelection"></CityLIstComponent>
 
 <br />
 <div class="input-group mb-3">
@@ -39,39 +23,32 @@
     </ServerListComponent>
 
 <p>
-    @* <AddServer /> *@
     <a href="/servers/add" class="btn btn-primary">Add Server</a>
 </p>
 
 @code {
-   
-    private List<String> cities = CitiesRepository.GetCities();
-    public string selectedCity = "Toronto";
+    public string selectedCity { get; set; } = "Toronto";
     private string _serverFilter = string.Empty;
     private string serverFilter
     {
         get => _serverFilter; set
         {
             _serverFilter = value;
-
             //this.servers = ServersRepository.SearchServers(_serverFilter);
         }
-    }
-
-    
-
-    private void SelectCity(string city)
-    {
-        this.selectedCity = city;
-        //this.servers = ServersRepository.GetServersByCity(selectedCity);
-    }
+    }   
 
     private void HandleSearch()
     {
         if (!string.IsNullOrWhiteSpace(serverFilter))
         {
           //  this.servers = ServersRepository.SearchServers(serverFilter);
-            this.selectedCity = string.Empty;
+          //  this.selectedCity = string.Empty;
         }
+    }
+
+    private void HandleCitySelection(string cityName)
+    {
+        this.selectedCity = cityName;
     }
 }
