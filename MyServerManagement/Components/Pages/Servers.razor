@@ -8,19 +8,14 @@
 <CityLIstComponent SelectedCityCallback="HandleCitySelection"></CityLIstComponent>
 
 <br />
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Search Servers" 
-    @bind-value="serverFilter" 
-    @bind-value:event="oninput"/>
-    <button class="btn btn-outline-secondary" type="button" id="button-search" 
-    @onclick="HandleSearch">Search</button>
-</div>
+<SearchBarComponent SearchServerCallback="HandleSearchServer"></SearchBarComponent>
 <br />
 
 <ServerListComponent 
     @rendermode="InteractiveServer"
-    CityName="@this.selectedCity">
-    </ServerListComponent>
+    CityName="@this.selectedCity"
+    SearchFilter="@searchFilter"
+></ServerListComponent>
 
 <p>
     <a href="/servers/add" class="btn btn-primary">Add Server</a>
@@ -28,27 +23,17 @@
 
 @code {
     public string selectedCity { get; set; } = "Toronto";
-    private string _serverFilter = string.Empty;
-    private string serverFilter
-    {
-        get => _serverFilter; set
-        {
-            _serverFilter = value;
-            //this.servers = ServersRepository.SearchServers(_serverFilter);
-        }
-    }   
 
-    private void HandleSearch()
-    {
-        if (!string.IsNullOrWhiteSpace(serverFilter))
-        {
-          //  this.servers = ServersRepository.SearchServers(serverFilter);
-          //  this.selectedCity = string.Empty;
-        }
-    }
+    public string searchFilter = "";
 
     private void HandleCitySelection(string cityName)
     {
         this.selectedCity = cityName;
+        this.searchFilter = string.Empty;
+    }
+
+    private void HandleSearchServer(string serverFilter)
+    {
+        this.searchFilter = serverFilter;
     }
 }
