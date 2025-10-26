@@ -5,7 +5,10 @@
 
 <h3>Servers</h3>
 
-<CityLIstComponent SelectedCityCallback="HandleCitySelection"></CityLIstComponent>
+<CityListComponent 
+    @ref="cityListComponent" 
+    SelectedCityCallback="HandleCitySelection"
+></CityListComponent>
 
 <br />
 <SearchBarComponent SearchServerCallback="HandleSearchServer"></SearchBarComponent>
@@ -26,6 +29,8 @@
 
     public string searchFilter = "";
 
+    public CityListComponent? cityListComponent;
+
     private void HandleCitySelection(string cityName)
     {
         this.selectedCity = cityName;
@@ -35,5 +40,6 @@
     private void HandleSearchServer(string serverFilter)
     {
         this.searchFilter = serverFilter;
+        cityListComponent?.ClearSelection();
     }
 }
