@@ -18,4 +18,8 @@
     {
         SearchServerCallback.InvokeAsync(serverFilter);
     }
+    public void ClearSearch()
+    {
+        this.serverFilter = string.Empty;
+    }
 }
