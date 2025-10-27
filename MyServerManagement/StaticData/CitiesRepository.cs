@@ -1,4 +1,4 @@
-﻿namespace MyServerManagement.Static_Data;
+﻿namespace MyServerManagement.StaticData;
 
 public static class CitiesRepository
 {
