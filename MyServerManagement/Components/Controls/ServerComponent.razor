@@ -8,25 +8,16 @@
             @(Server.IsOnline ? "Online" : "Offline")
         </span>
         &nbsp;
-            <button type="button" class="btn btn-link" @onclick="(() => { this.editingServer = !this.editingServer; })">Edit</button>
+        <a href="/servers/@Server.ServerId" class="btn btn-link">Edit</a>
         <EditForm Model="Server"
                   FormName="@($"server-{Server.ServerId}")"
                   OnValidSubmit="@(()=>DeleteServer(Server.ServerId))">
             <button type="submit" class="btn btn-primary">Delete</button>
         </EditForm>
-
-        @if (editingServer)
-        {
-            <MyServerManagement.Components.Pages.EditServer Id="this.Server.ServerId"></MyServerManagement.Components.Pages.EditServer>    
-        }
-
     </li>
 }
 
-    @code {
-
-    private bool editingServer = false;
-
+@code {
     [Parameter]
     public Server? Server { get; set; } //= new Server { Name = "Server 1", City = "Toronto" };
 
