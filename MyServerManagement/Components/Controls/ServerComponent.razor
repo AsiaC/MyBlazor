@@ -8,6 +8,26 @@
             @(Server.IsOnline ? "Online" : "Offline")
         </span>
         &nbsp;
+        @if (Server.IsOnline)
+        {
+            <button type="button" class="btn btn-outline-danger" onclick="@(()=>{Server.IsOnline=false;})">Turn Off</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-outline-success" onclick="@(()=>{Server.IsOnline=true;})">Turn On</button>
+        }
+        &nbsp;
+        @if (Server.IsOnline)
+        {
+            Random rand = new Random();
+            int randomNumber = rand.Next(1, 100);
+            <text>@randomNumber</text>
+        }
+        else
+        {
+            <text>N/A</text>
+        }
+        &nbsp;
         <a href="/servers/@Server.ServerId" class="btn btn-link">Edit</a>
         <EditForm Model="Server"
                   FormName="@($"server-{Server.ServerId}")"
