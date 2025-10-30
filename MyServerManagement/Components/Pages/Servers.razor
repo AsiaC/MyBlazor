@@ -5,23 +5,19 @@
 
 <h3>Servers</h3>
 
-<CityListComponent 
-    @ref="cityListComponent" 
-    SelectedCityCallback="HandleCitySelection"
-></CityListComponent>
+<CityListComponent @ref="cityListComponent"
+                   SelectedCityCallback="HandleCitySelection"></CityListComponent>
 
 <br />
-<SearchBarComponent 
-    @ref="searchBarComponent"
-    SearchServerCallback="HandleSearchServer"
-></SearchBarComponent>
+<SearchBarComponent @ref="searchBarComponent"
+                    SearchServerCallback="HandleSearchServer"></SearchBarComponent>
 <br />
 
-<ServerListComponent 
-    @rendermode="InteractiveServer"
-    CityName="@this.selectedCity"
-    SearchFilter="@searchFilter"
-></ServerListComponent>
+<CascadingValue Name="SelectedCity" Value="@selectedCity">
+    <ServerListComponent @rendermode="InteractiveServer"
+                         CityName="@this.selectedCity"
+                         SearchFilter="@searchFilter"></ServerListComponent>
+</CascadingValue>
 
 <p>
     <a href="/servers/add" class="btn btn-primary">Add Server</a>

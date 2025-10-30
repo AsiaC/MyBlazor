@@ -2,7 +2,7 @@
 
 @if(Server != null)
 {
-    <li @key="Server.ServerId">
+    <li @key="Server.ServerId" style="background-color: @GetBackgroundcColor()">
         @Server.Name in @Server.City is
         <span style="color:@(Server.IsOnline ? "green" : "red")">
             @(Server.IsOnline ? "Online" : "Offline")
@@ -39,7 +39,10 @@
 
 @code {
     [Parameter]
-    public Server? Server { get; set; } //= new Server { Name = "Server 1", City = "Toronto" };
+    public Server? Server { get; set; } 
+
+    [CascadingParameter(Name = "SelectedCity")]
+    public string? SelectedCity { get; set; }
 
     private void DeleteServer(int serverId)
     {
@@ -48,5 +51,22 @@
             ServersRepository.DeleteServer(serverId);
             NavigationManager.NavigateTo("/servers", true);
         }
+    }
+
+    private string GetBackgroundcColor()
+    {
+        if (SelectedCity != null)
+        {
+            switch (this.SelectedCity)
+            {
+                case "Toronto": return "#D6EAF8";
+                case "Montreal": return "#D5F5E3";
+                case "Ottawa": return "#FADBD8";
+                case "Calgary": return "#FCF3CF";
+                case "Halifax": return "#E8DAEF";
+                default: return "white";
+            }
+        }
+        return "white";
     }
 }
