@@ -1,11 +1,10 @@
-﻿@if (this.servers != null && this.servers.Count > 0)
-{
-    <ul class="list-unstyled">
-        <Virtualize Items="this.servers" Context="server">
+﻿<ul class="list-unstyled">
+    <RepeaterComponent Items="this.servers">
+        <Row Context="server">
             <ServerComponent Server="@server"></ServerComponent>
-        </Virtualize>
-    </ul>
-}
+        </Row>
+    </RepeaterComponent>
+</ul>
 
 @code {
     [Parameter]
@@ -20,8 +19,8 @@
     {
         if (string.IsNullOrWhiteSpace(this.SearchFilter))
         {
-            servers = ServersRepository.GetServersByCity(CityName ?? "Toronto"); 
-        } 
+            servers = ServersRepository.GetServersByCity(CityName ?? "Toronto");
+        }
         else
         {
             servers = ServersRepository.SearchServers(this.SearchFilter);
@@ -30,5 +29,5 @@
 
     }
 
-    
+
 }
