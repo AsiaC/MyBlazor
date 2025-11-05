@@ -61,7 +61,7 @@
         {
             ServersRepository.UpdateServer(server.ServerId, server);
         }
-        NavigationManager.NavigateTo("/servers", true);
-        //NavigationManager.NavigateTo($"/servers/back_from/{this.server?.City}");
+        
+        NavigationManager.NavigateTo($"/servers/back_from/{this.server?.City}");
     }
 }
