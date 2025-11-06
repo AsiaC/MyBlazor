@@ -1,18 +1,26 @@
-﻿@page "/servers/{id:int?}"
+﻿@page "/server/{id:int?}"
+
 @inject NavigationManager NavigationManager
 
-<h3>EditServer</h3>
-<br />
-<br />
+@if (Id.HasValue)
+{
+    <h3>AddServer</h3>
+}
+else
+{
+    <h3>EditServer</h3>
+}
+
 @if (server != null)
 {
     <EditForm Model="server" FormName="formServer" OnValidSubmit="Submit">
-
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
 
-        <InputNumber @bind-Value="server.ServerId" hidden></InputNumber>
-
+        @if (server.ServerId > 0)
+        {
+            <InputNumber @bind-Value="server.ServerId" hidden></InputNumber>
+        }
         <FieldComponent Label="Name">
             <Control>
                 <InputText @bind-Value="server.Name" class="form-control"></InputText>
@@ -36,32 +44,47 @@
                 <InputCheckbox @bind-Value="server.IsOnline" class="form-check-input"></InputCheckbox>
             </Control>
         </FieldComponent>
-
+    <br/>
+    @if (server.ServerId > 0)
+    {
         <button type="submit" class="btn btn-primary">Update</button>
-        &nbsp;
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+    &nbsp;
         <a href="/servers" class="btn btn-primary">Close</a>
     </EditForm>
 }
 
 
 @code {
-    [Parameter] //https://learn.microsoft.com/en-us/aspnet/core/blazor/hybrid/routing?view=aspnetcore-9.0&pivots=maui  //https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-10.0#route-constraints
-    public int Id { get; set; }
+    [Parameter] 
+    public int? Id { get; set; }
 
-    [SupplyParameterFromForm] //model binding
+    [SupplyParameterFromForm] 
     private Server? server { get; set; }
 
-    protected override void OnParametersSet() //override
+    protected override void OnParametersSet()
     {
-        server ??= ServersRepository.GetServerById(this.Id);
+        if (this.Id.HasValue)
+            server ??= ServersRepository.GetServerById(this.Id.Value);
+        else
+            server ??= new Server() { IsOnline = false };
+
     }
     private void Submit()
     {
         if (server != null)
         {
-            ServersRepository.UpdateServer(server.ServerId, server);
+            if (this.Id.HasValue)
+                ServersRepository.UpdateServer(server.ServerId, server);
+            else
+                ServersRepository.AddServer(server);
         }
         
         NavigationManager.NavigateTo($"/servers/back_from/{this.server?.City}");
     }
+
 }
