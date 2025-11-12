@@ -2,6 +2,10 @@
 
 @inject NavigationManager NavigationManager
 @inject TorontoOnlineServersStore TorontoOnlineServersStore
+@inject OttawaOnlineServersStore OttawaOnlineServersStore
+@inject MontrealOnlineServersStore MontrealOnlineServersStore
+@inject HalifaxOnlineServersStore HalifaxOnlineServersStore
+@inject CalgaryOnlineServersStore CalgaryOnlineServersStore
 
 @if (Server != null)
 {
@@ -97,7 +101,35 @@
                             TorontoOnlineServersStore.SetNumbersServersOnline(num + 1);
                         else if (num >= 1)
                             TorontoOnlineServersStore.SetNumbersServersOnline(num - 1);
-                        break;               
+                        break;    
+                    case "Montreal":
+                        num = MontrealOnlineServersStore.GetNumberServersOnline();
+                        if (status)
+                            MontrealOnlineServersStore.SetNumbersServersOnline(num + 1);
+                        else if (num >= 1)
+                            MontrealOnlineServersStore.SetNumbersServersOnline(num - 1);
+                        break;
+                    case "Ottawa":
+                        num = OttawaOnlineServersStore.GetNumberServersOnline();
+                        if (status)
+                            OttawaOnlineServersStore.SetNumbersServersOnline(num + 1);
+                        else if (num >= 1)
+                            OttawaOnlineServersStore.SetNumbersServersOnline(num - 1);
+                        break;
+                    case "Calgary":
+                        num = CalgaryOnlineServersStore.GetNumberServersOnline();
+                        if (status)
+                            CalgaryOnlineServersStore.SetNumbersServersOnline(num + 1);
+                        else if (num >= 1)
+                            CalgaryOnlineServersStore.SetNumbersServersOnline(num - 1);
+                        break;
+                    case "Halifax":
+                        num = HalifaxOnlineServersStore.GetNumberServersOnline();
+                        if (status)
+                            HalifaxOnlineServersStore.SetNumbersServersOnline(num + 1);
+                        else if (num >= 1)
+                            HalifaxOnlineServersStore.SetNumbersServersOnline(num - 1);
+                        break;
                 }
 
                 this.Server.IsOnline = status;

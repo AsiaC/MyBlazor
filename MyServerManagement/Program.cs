@@ -7,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TorontoOnlineServersStore>();
-//builder.Services.AddScoped<MontrealOnlineServersStore>();
-//builder.Services.AddScoped<OttawaOnlineServersStore>();
-//builder.Services.AddScoped<HalifaxOnlineServersStore>();
-//builder.Services.AddScoped<CalgaryOnlineServersStore>();
+builder.Services.AddScoped<MontrealOnlineServersStore>();
+builder.Services.AddScoped<OttawaOnlineServersStore>();
+builder.Services.AddScoped<HalifaxOnlineServersStore>();
+builder.Services.AddScoped<CalgaryOnlineServersStore>();
 
 var app = builder.Build();
 

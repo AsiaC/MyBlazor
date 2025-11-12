@@ -1,6 +1,10 @@
 ﻿@using MyServerManagement.StateStore
 
 @inject TorontoOnlineServersStore TorontoOnlineServersStore
+@inject OttawaOnlineServersStore OttawaOnlineServersStore
+@inject MontrealOnlineServersStore MontrealOnlineServersStore
+@inject HalifaxOnlineServersStore HalifaxOnlineServersStore
+@inject CalgaryOnlineServersStore CalgaryOnlineServersStore
 
 <div class="col">
     <div class="card @(selectedCity.Equals(city, StringComparison.OrdinalIgnoreCase) ? "border-primary" : "")">
@@ -13,7 +17,19 @@
             {
                 case "Toronto":
                     <text>@numberServersOnlineToronto</text>
-                    break;                
+                    break;
+                case "Montreal":
+                    <text>@numberServersOnlineMontreal</text>
+                    break;
+                case "Ottawa":
+                    <text>@numberServersOnlineOttawa</text>
+                    break;
+                case "Calgary":
+                    <text>@numberServersOnlineCalgary</text>
+                    break;
+                case "Halifax":
+                    <text>@numberServersOnlineHalifax</text>
+                    break;
             }
         </div>
     </div>
@@ -30,6 +46,10 @@
     public EventCallback<string> SelectedCityCallback { get; set; }
 
     private int numberServersOnlineToronto;
+    private int numberServersOnlineMontreal;
+    private int numberServersOnlineCalgary;
+    private int numberServersOnlineOttawa;
+    private int numberServersOnlineHalifax;
 
     private void SelectCity(string cityName)
     {
@@ -45,7 +65,23 @@
                 case "Toronto":
                     numberServersOnlineToronto = TorontoOnlineServersStore.GetNumberServersOnline();
                     TorontoOnlineServersStore.AddStateChangeListeners(OnTorontoServersStatusChange);
-                    break;                
+                    break;       
+                case "Montreal":
+                    numberServersOnlineMontreal = MontrealOnlineServersStore.GetNumberServersOnline();
+                    MontrealOnlineServersStore.AddStateChangeListeners(OnMontrealServersStatusChange);
+                    break;
+                case "Ottawa":
+                    numberServersOnlineOttawa = OttawaOnlineServersStore.GetNumberServersOnline();
+                    OttawaOnlineServersStore.AddStateChangeListeners(OnOttawaServersStatusChange);
+                    break;
+                case "Calgary":
+                    numberServersOnlineCalgary = CalgaryOnlineServersStore.GetNumberServersOnline();
+                    CalgaryOnlineServersStore.AddStateChangeListeners(OnCalgaryServersStatusChange);
+                    break;
+                case "Halifax":
+                    numberServersOnlineHalifax = HalifaxOnlineServersStore.GetNumberServersOnline();
+                    HalifaxOnlineServersStore.AddStateChangeListeners(OnHalifaxServersStatusChange);
+                    break;
             }
 
             StateHasChanged();
@@ -58,13 +94,49 @@
         StateHasChanged();
     }
 
+    private void OnMontrealServersStatusChange()
+    {
+        numberServersOnlineMontreal = MontrealOnlineServersStore.GetNumberServersOnline();
+        StateHasChanged();
+    }
+
+    private void OnOttawaServersStatusChange()
+    {
+        numberServersOnlineOttawa = OttawaOnlineServersStore.GetNumberServersOnline();
+        StateHasChanged();
+    }
+
+    private void OnCalgaryServersStatusChange()
+    {
+        numberServersOnlineCalgary = CalgaryOnlineServersStore.GetNumberServersOnline();
+        StateHasChanged();
+    }
+
+    private void OnHalifaxServersStatusChange()
+    {
+        numberServersOnlineHalifax = HalifaxOnlineServersStore.GetNumberServersOnline();
+        StateHasChanged();
+    }
+
     public void Dispose()
     {
         switch (city)
         {
             case "Toronto":
                 TorontoOnlineServersStore.RemoveStateChangeListeners(OnTorontoServersStatusChange);
-                break;            
+                break;   
+            case "Montreal":
+                MontrealOnlineServersStore.RemoveStateChangeListeners(OnMontrealServersStatusChange);
+                break;
+            case "Ottawa":
+                OttawaOnlineServersStore.RemoveStateChangeListeners(OnOttawaServersStatusChange);
+                break;
+            case "Calgary":
+                CalgaryOnlineServersStore.RemoveStateChangeListeners(OnCalgaryServersStatusChange);
+                break;
+            case "Halifax":
+                HalifaxOnlineServersStore.RemoveStateChangeListeners(OnHalifaxServersStatusChange);
+                break;
         }
     }
 }
