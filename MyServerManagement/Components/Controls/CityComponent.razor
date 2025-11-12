@@ -1,8 +1,20 @@
-﻿<div class="col">
+﻿@using MyServerManagement.StateStore
+
+@inject TorontoOnlineServersStore TorontoOnlineServersStore
+
+<div class="col">
     <div class="card @(selectedCity.Equals(city, StringComparison.OrdinalIgnoreCase) ? "border-primary" : "")">
         <img src=@($"/images/{city}.png") class="card-img-top" alt="...">
         <div class="card-body">
             <button type="button" class="btn btn-primary" @onclick="@(() => { SelectCity(city); })">@city </button>
+        </div>
+        <div>
+            @switch (city)
+            {
+                case "Toronto":
+                    <text>@numberServersOnlineToronto</text>
+                    break;                
+            }
         </div>
     </div>
 </div>
@@ -17,9 +29,42 @@
     [Parameter]
     public EventCallback<string> SelectedCityCallback { get; set; }
 
+    private int numberServersOnlineToronto;
+
     private void SelectCity(string cityName)
     {
         SelectedCityCallback.InvokeAsync(cityName);
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            switch (city)
+            {
+                case "Toronto":
+                    numberServersOnlineToronto = TorontoOnlineServersStore.GetNumberServersOnline();
+                    TorontoOnlineServersStore.AddStateChangeListeners(OnTorontoServersStatusChange);
+                    break;                
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    private void OnTorontoServersStatusChange()
+    {
+        numberServersOnlineToronto = TorontoOnlineServersStore.GetNumberServersOnline();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        switch (city)
+        {
+            case "Toronto":
+                TorontoOnlineServersStore.RemoveStateChangeListeners(OnTorontoServersStatusChange);
+                break;            
+        }
+    }
 }

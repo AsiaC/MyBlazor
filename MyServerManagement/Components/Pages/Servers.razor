@@ -1,9 +1,12 @@
 ﻿@page "/servers"
 @page "/servers/back_from/{cityName}"
 
-@rendermode InteractiveServer
 @using MyServerManagement.Components.Controls
+@using MyServerManagement.StateStore
+
+@rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject TorontoOnlineServersStore TorontoOnlineServersStore
 
 <h3>Servers</h3>
 
@@ -62,7 +65,10 @@
                 selectedCity = CityName;
                 StateHasChanged();
             }
-
+            //Init state stores
+            var serversToronto = ServersRepository.GetServersByCity("Toronto");
+            if (serversToronto is not null)
+                TorontoOnlineServersStore.SetNumbersServersOnline(serversToronto.Count(x => x.IsOnline));               
         }
     }
 }
