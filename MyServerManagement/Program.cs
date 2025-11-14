@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyServerManagement.Components;
 using MyServerManagement.Data;
+using MyServerManagement.Models;
 using MyServerManagement.StateStore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddScoped<MontrealOnlineServersStore>();
 builder.Services.AddScoped<OttawaOnlineServersStore>();
 builder.Services.AddScoped<HalifaxOnlineServersStore>();
 builder.Services.AddScoped<CalgaryOnlineServersStore>();
+
+builder.Services.AddTransient<IServersEFCoreRepository, ServersEFCoreRepository>();
 
 var app = builder.Build();
 
