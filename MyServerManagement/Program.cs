@@ -1,9 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using MyServerManagement.Components;
+using MyServerManagement.Data;
 using MyServerManagement.StateStore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContextFactory<ServerManagementContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TorontoOnlineServersStore>();

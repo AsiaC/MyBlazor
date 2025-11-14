@@ -5,6 +5,10 @@ namespace MyServerManagement.Data
 {
     public class ServerManagementContext : DbContext
     {
+        public ServerManagementContext(DbContextOptions<ServerManagementContext> options) : base(options)
+        {
+
+        }
         public DbSet<Server> Servers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
