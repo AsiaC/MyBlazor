@@ -6,7 +6,6 @@ using MyServerManagement.Data;
 using MyServerManagement.Models;
 using MyServerManagement.StateStore;
 using MyServerManagement.Components.Account;
-using MyServerManagement.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +46,8 @@ builder.Services.AddScoped<HalifaxOnlineServersStore>();
 builder.Services.AddScoped<CalgaryOnlineServersStore>();
 
 builder.Services.AddTransient<IServersEFCoreRepository, ServersEFCoreRepository>();
+
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
 
